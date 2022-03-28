@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
+import Credits from './components/Credits'
+import Debits from './components/Debits'
 
 class App extends Component {
   constructor() {  // Create and initialize state
@@ -32,6 +34,8 @@ class App extends Component {
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
+    const DebitsComponent = () => (<Debits />) // ADD PROPS
+    const CreditsComponent = () => (<Credits />) // ADD PROPS
 
     return (
         <Router>
@@ -39,6 +43,8 @@ class App extends Component {
             <Route exact path="/" render={HomeComponent}/>
             <Route exact path="/userProfile" render={UserProfileComponent}/>
             <Route exact path="/login" render={LogInComponent}/>
+            <Route exact path="/credits" render={CreditsComponent}/>
+            <Route exact path="/debits" render={DebitsComponent}/>
           </div>
         </Router>
     );
