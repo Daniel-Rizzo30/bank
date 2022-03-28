@@ -6,4 +6,4 @@ WebDev Assignment 4
 
 Daniel Rizzo - Daniel-Rizzo30
 
-[Click through to our website](https://daniel-rizzo30.github.io/Zoo/)
+[Click through to the website](https://daniel-rizzo30.github.io/Zoo/)
