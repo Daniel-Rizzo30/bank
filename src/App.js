@@ -2,11 +2,11 @@
 
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import Home from './components/Home';
-import UserProfile from './components/UserProfile';
-import LogIn from './components/Login';
-import Credits from './components/Credits'
-import Debits from './components/Debits'
+import Home from './components/Home.js';
+import UserProfile from './components/UserProfile.js';
+import LogIn from './components/Login.js';
+import Credits from './components/Credits.js'
+import Debits from './components/Debits.js'
 
 class App extends Component {
   constructor() {  // Create and initialize state
