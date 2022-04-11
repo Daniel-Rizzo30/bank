@@ -87,8 +87,11 @@ class App extends Component {
     const DebitsComponent = () => (<Debits debits={this.state.debits} 
                                            addDebit={this.addDebit} 
                                            accountBalance={this.state.accountBalance} 
-                                           />); // Added props to pass debits and addDebit function
-    const CreditsComponent = () => (<Credits />); // ADD PROPS
+                                           />); // Added props to pass debits, acctBalance and addDebit function
+    const CreditsComponent = () => (<Credits credits={this.state.credits} 
+                                             addCredit={this.addCredit} 
+                                             accountBalance={this.state.accountBalance} 
+                                             />); // Added props to pass credits, acctBalance and addCredit function
 
     return (
         <Router>
