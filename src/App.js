@@ -1,6 +1,7 @@
 // src/App.js
 
 import React, {Component} from 'react';
+import axios from 'axios';// Library used to send asynchronous HTTP requests to RESTful endpoints (APIs)
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/Home.js';
 import UserProfile from './components/UserProfile.js';
@@ -16,8 +17,57 @@ class App extends Component {
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '07/23/96',
-      }
+      },
+      credits: [],
+      debits: [],
     }
+  }
+
+  // Make async API call to retrieve data from remote website
+  async componentDidMount() {
+    let linkToDebitAPI = 'https://moj-api.herokuapp.com/debits';  // Link to remote website API for Debit
+    let linkToCreditAPI = 'https://moj-api.herokuapp.com/credits';  // Link to remote website API for Credit
+    // API is of the form - {"id":"","description":"","amount": <number>,"date":""}
+
+    // Await for promise (completion) returned from API call
+    try {  // Accept success response as array of JSON objects (users)
+      let responseDebit = await axios.get(linkToDebitAPI);
+      let responseCredit = await axios.get(linkToCreditAPI);
+      console.log(responseDebit);  // Print out responses
+      console.log(responseCredit); 
+      // To get data object in the response, need to use "response.data"
+      this.setState({credits: responseCredit.data, 
+                     debits: responseDebit.data});  // Store received data in state's object
+    } 
+    catch (error) {  // Print out errors at console when there is an error response
+      if (error.response) {
+        // The request was made, and the server responded with error message and status code.
+        console.log(error.response.data);  // Print out error message (e.g., Not Found)
+        console.log(error.response.status);  // Print out error status code (e.g., 404)
+      }    
+    }
+  }
+  
+  // Function to update credit array and update accountBalance
+  // Should be passed down into credit component and should most likely be awaited ? 
+  addCredit = (credit) => {
+    let newCredits = {...this.state.credits}; // Copy old array
+    newCredits.push(credit); // Add new posted value
+    let newAccountBalance = {...this.state.accountBalance}; // Copy old account balance
+    newAccountBalance += credit.amount; // Add more credit
+    this.setState({credit: newCredits, 
+                   accountBalance:  newAccountBalance}); // Set new state values
+  }
+
+  // Function to update debit array and update accountBalance
+  // Should be passed down into debit component and should most likely be awaited ? 
+  addDebit = (debit) => {
+    let newDebits = {...this.state.debits}; // Copy old array
+    newDebits.push(debit); // Add new posted value
+    let newAccountBalance = {...this.state.accountBalance}; // Copy old account balance
+    newAccountBalance -= debit.amount; // Add more debit by subtracting the amount
+    this.setState({debit: newDebits, 
+                   accountBalance:  newAccountBalance}); // Set new state values
   }
 
   // Update state's currentUser (userName) after "Log In" button is clicked
