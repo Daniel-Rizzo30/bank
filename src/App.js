@@ -33,9 +33,9 @@ class App extends Component {
     const UserProfileComponent = () => (
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
-    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
-    const DebitsComponent = () => (<Debits />) // ADD PROPS
-    const CreditsComponent = () => (<Credits />) // ADD PROPS
+    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
+    const DebitsComponent = () => (<Debits />); // ADD PROPS
+    const CreditsComponent = () => (<Credits />); // ADD PROPS
 
     return (
         <Router>
