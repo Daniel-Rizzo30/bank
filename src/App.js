@@ -67,7 +67,7 @@ class App extends Component {
     let newAccountBalance = {...this.state.accountBalance}; // Copy old account balance
     newAccountBalance -= debit.amount; // Add more debit by subtracting the amount
     this.setState({debit: newDebits, 
-                   accountBalance:  newAccountBalance}); // Set new state values
+                   accountBalance: newAccountBalance}); // Set new state values
   }
 
   // Update state's currentUser (userName) after "Log In" button is clicked
@@ -84,7 +84,10 @@ class App extends Component {
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
-    const DebitsComponent = () => (<Debits />); // ADD PROPS
+    const DebitsComponent = () => (<Debits debits={this.state.debits} 
+                                           addDebit={this.addDebit} 
+                                           accountBalance={this.state.accountBalance} 
+                                           />); // Added props to pass debits and addDebit function
     const CreditsComponent = () => (<Credits />); // ADD PROPS
 
     return (
