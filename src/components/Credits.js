@@ -46,6 +46,7 @@ class Credits extends Component {
     credit.date = credit.date.toISOString(); // Turn into the string used in the API
     this.props.updateId(); // Make sure each ID is unique
     this.props.addCredit(credit); // Finally add to the debt from App.js
+    this.setState({description: "", amount: 0}); // Reset state
   }
 
   render() {
