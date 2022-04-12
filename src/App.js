@@ -64,13 +64,14 @@ class App extends Component {
   // Function to update debit array and update accountBalance
   // Should be passed down into debit component and should most likely be awaited ? 
   addDebit = (debit) => {
-    console.log("addDebit");
+    console.log("addDebit"); // Show that the function began
     let newDebits = this.state.debits; // Copy old array
     newDebits.push(debit); // Add new posted value
     let newAccountBalance = this.state.accountBalance; // Copy old account balance
     newAccountBalance -= debit.amount; // Add more debit by subtracting the amount
     this.setState({debit: newDebits, 
                    accountBalance: newAccountBalance}); // Set new state values
+    console.log(this.state.debits); // Check that it worked
   }
 
   updateId = () => {
@@ -87,7 +88,6 @@ class App extends Component {
   // Create Routes and React elements to be rendered using React components
   render() {  
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);
-    //const HomeComponent = () => (<h1>HELLO</h1>)
     const UserProfileComponent = () => (
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
@@ -104,11 +104,10 @@ class App extends Component {
                                              currentId={this.state.currentId}
                                              updateId={this.updateId}
                                              />); // Added props to pass credits, acctBalance and addCredit function
-
-    const DummyComponent = () => ( <div> 
-      <p>What is going on why doesn't the credit and debit components work</p> 
-      <Debits/>
-      </div>);
+    // const DummyComponent = () => ( <div> 
+    //   <p>What is going on why doesn't the credit and debit components work</p> 
+    //   <Debits/>
+    //   </div>);
 
     return (
         <Router>
@@ -118,7 +117,7 @@ class App extends Component {
             <Route exact path="/login" render={LogInComponent}/>
             <Route exact path="/credits" render={CreditComponent}/>
             <Route exact path="/debits" render={DebitComponent}/>
-            <Route exact path="/dummy" render={DummyComponent}/>
+            {/* <Route exact path="/dummy" render={DummyComponent}/> */}
           </div>
         </Router>
     );

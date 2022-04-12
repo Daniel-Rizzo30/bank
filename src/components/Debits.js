@@ -52,8 +52,9 @@ class Debits extends Component {
       date: new Date(),
       id: this.props.currentId
     };
-    //this.props.updateId(); 
-    this.props.addDebit(debit);
+    debit.date = debit.date.toISOString(); // Turn into the string used in the API
+    this.props.updateId(); // Make sure each ID is unique
+    this.props.addDebit(debit); // Finally add to the debt from App.js
   }
 
   render() {
