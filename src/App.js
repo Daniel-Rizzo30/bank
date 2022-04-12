@@ -6,8 +6,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/Home.js';
 import UserProfile from './components/UserProfile.js';
 import LogIn from './components/Login.js';
-import Credits from './components/Credits.js'
-import Debits from './components/Debits.js'
+import Credits from './components/Credits';
+import Debits from './components/Debits';
 
 class App extends Component {
   constructor() {  // Create and initialize state
@@ -20,6 +20,7 @@ class App extends Component {
       },
       credits: [],
       debits: [],
+      currentId: 0,
     }
   }
 
@@ -33,8 +34,8 @@ class App extends Component {
     try {  // Accept success response as array of JSON objects (users)
       let responseDebit = await axios.get(linkToDebitAPI);
       let responseCredit = await axios.get(linkToCreditAPI);
-      console.log(responseDebit);  // Print out responses
-      console.log(responseCredit); 
+      console.log(responseDebit.data);  // Print out responses
+      console.log(responseCredit.data); 
       // To get data object in the response, need to use "response.data"
       this.setState({credits: responseCredit.data, 
                      debits: responseDebit.data});  // Store received data in state's object
@@ -51,9 +52,10 @@ class App extends Component {
   // Function to update credit array and update accountBalance
   // Should be passed down into credit component and should most likely be awaited ? 
   addCredit = (credit) => {
-    let newCredits = {...this.state.credits}; // Copy old array
+    console.log("addCredit");
+    let newCredits = this.state.credits; // Copy old array
     newCredits.push(credit); // Add new posted value
-    let newAccountBalance = {...this.state.accountBalance}; // Copy old account balance
+    let newAccountBalance = this.state.accountBalance; // Copy old account balance
     newAccountBalance += credit.amount; // Add more credit
     this.setState({credit: newCredits, 
                    accountBalance:  newAccountBalance}); // Set new state values
@@ -62,12 +64,18 @@ class App extends Component {
   // Function to update debit array and update accountBalance
   // Should be passed down into debit component and should most likely be awaited ? 
   addDebit = (debit) => {
-    let newDebits = {...this.state.debits}; // Copy old array
+    console.log("addDebit"); // Show that the function began
+    let newDebits = this.state.debits; // Copy old array
     newDebits.push(debit); // Add new posted value
-    let newAccountBalance = {...this.state.accountBalance}; // Copy old account balance
+    let newAccountBalance = this.state.accountBalance; // Copy old account balance
     newAccountBalance -= debit.amount; // Add more debit by subtracting the amount
     this.setState({debit: newDebits, 
                    accountBalance: newAccountBalance}); // Set new state values
+    console.log(this.state.debits); // Check that it worked
+  }
+
+  updateId = () => {
+    this.setState({currentId: this.state.currentId + 1});
   }
 
   // Update state's currentUser (userName) after "Log In" button is clicked
@@ -84,14 +92,22 @@ class App extends Component {
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
-    const DebitsComponent = () => (<Debits debits={this.state.debits} 
+    const DebitComponent = () => (<Debits debits={this.state.debits} 
                                            addDebit={this.addDebit} 
                                            accountBalance={this.state.accountBalance} 
+                                           currentId={this.state.currentId}
+                                           updateId={this.updateId}
                                            />); // Added props to pass debits, acctBalance and addDebit function
-    const CreditsComponent = () => (<Credits credits={this.state.credits} 
+    const CreditComponent = () => (<Credits credits={this.state.credits} 
                                              addCredit={this.addCredit} 
                                              accountBalance={this.state.accountBalance} 
+                                             currentId={this.state.currentId}
+                                             updateId={this.updateId}
                                              />); // Added props to pass credits, acctBalance and addCredit function
+    // const DummyComponent = () => ( <div> 
+    //   <p>What is going on why doesn't the credit and debit components work</p> 
+    //   <Debits/>
+    //   </div>);
 
     return (
         <Router>
@@ -99,8 +115,9 @@ class App extends Component {
             <Route exact path="/" render={HomeComponent}/>
             <Route exact path="/userProfile" render={UserProfileComponent}/>
             <Route exact path="/login" render={LogInComponent}/>
-            <Route exact path="/credits" render={CreditsComponent}/>
-            <Route exact path="/debits" render={DebitsComponent}/>
+            <Route exact path="/credits" render={CreditComponent}/>
+            <Route exact path="/debits" render={DebitComponent}/>
+            {/* <Route exact path="/dummy" render={DummyComponent}/> */}
           </div>
         </Router>
     );
