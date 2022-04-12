@@ -9,18 +9,8 @@ class Debits extends Component {
     super(props); // Always do super()
     this.state = {
       description: "",
-      amount: "",
+      amount: 0,
     }
-  }
-
-  // List out the debit posts from the array from props onto the page
-	debitsView = () => {
-      const { debits } = this.props.debits; // Grab from props the array
-      return debits.map((debit) => { // Use map to list each debit item
-          let date = debit.date.slice(0,10); // Get the first ten chars of the date
-          // Give map a list item, with key using the id, which lists the other values
-          return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
-      }) 
   }
 
   handleChange = (event) => {

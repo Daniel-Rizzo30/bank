@@ -52,13 +52,15 @@ class App extends Component {
   // Function to update credit array and update accountBalance
   // Should be passed down into credit component and should most likely be awaited ? 
   addCredit = (credit) => {
-    console.log("addCredit");
+    console.log("addCredit"); // Show that the function began
     let newCredits = this.state.credits; // Copy old array
     newCredits.push(credit); // Add new posted value
     let newAccountBalance = this.state.accountBalance; // Copy old account balance
-    newAccountBalance += credit.amount; // Add more credit
+    newAccountBalance = newAccountBalance + + credit.amount; // Add more credit 
+    // Needed to force math addition above with double + + for some reason
     this.setState({credit: newCredits, 
                    accountBalance:  newAccountBalance}); // Set new state values
+    console.log(this.state.credits); // Check that it worked
   }
 
   // Function to update debit array and update accountBalance
