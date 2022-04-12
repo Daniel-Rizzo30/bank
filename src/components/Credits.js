@@ -27,8 +27,9 @@ class Credits extends Component {
     let list = credits.map( (credit) => { // Use map to list each credit item
       let date = credit.date.slice(0,10); // Get the first ten chars of the date 
       // Give map a list item, with key using the id, which lists the other values
+      let descriptionToCaps = credit.description.toUpperCase(); // Display in all caps like a bank usually does
       return (
-        <li key={credit.id}>{credit.amount} {credit.description} {date}</li>
+        <li key={credit.id}>${credit.amount}&emsp;&emsp;{descriptionToCaps}&emsp;on:&emsp;{date}</li>
       );
     });
     return list;
@@ -36,7 +37,7 @@ class Credits extends Component {
 
   handleSubmit = (event) =>  {
     event.preventDefault(); // Stop page refresh
-    let credit = {
+    let credit = { // Add attributes to credit
       amount: this.state.amount,
       description: this.state.description,
       date: new Date(),
@@ -50,16 +51,18 @@ class Credits extends Component {
   render() {
     return (
     	<div>
+         <img src="https://picsum.photos/200/200" alt="bank"/>
     	   <h1>Credits</h1>
-          {/* Make a form, which uses the function from App.js to add to that state*/}  
+         <h2>{this.props.userName}</h2>
           <AccountBalance accountBalance={this.props.accountBalance}/>
+          {/* Make a form, which uses handleSubmit to access the props functions from App.js */}  
            <form onSubmit={this.handleSubmit}>
              <input 
              type="text" 
              name="description"
-             placeholder='Description'
-             value={this.state.description}
-             onChange={this.handleChange} 
+             placeholder='Description' // Add a placeholder that tells the user what to input
+             value={this.state.description} // Keep the value in state
+             onChange={this.handleChange} // Change state when the value changes
              />
              <input 
              type="float" 
@@ -71,8 +74,9 @@ class Credits extends Component {
              <button type="submit">Add Credit</button>
            </form>
 
-          <ul>
-            {this.creditsView()}
+          <ul> 
+            {this.creditsView()} 
+            {/* Must put this function within a list, as it only returns list items */}
           </ul>
 
            <Link to="/">Return to Home</Link>

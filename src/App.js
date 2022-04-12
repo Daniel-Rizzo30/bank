@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   updateId = () => {
-    this.setState({currentId: this.state.currentId + 1});
+    this.setState({currentId: this.state.currentId + 1}); // Increment by 1 to get a new ID
   }
 
   // Update state's currentUser (userName) after "Log In" button is clicked
@@ -91,25 +91,25 @@ class App extends Component {
   render() {  
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);
     const UserProfileComponent = () => (
-        <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
+        <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}/>
     );
-    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
+    const LogInComponent = () => (<LogIn user={this.state.currentUser} 
+                                         mockLogIn={this.mockLogIn}
+                                         />);  // Pass props to "LogIn" component
     const DebitComponent = () => (<Debits debits={this.state.debits} 
-                                           addDebit={this.addDebit} 
-                                           accountBalance={this.state.accountBalance} 
-                                           currentId={this.state.currentId}
-                                           updateId={this.updateId}
-                                           />); // Added props to pass debits, acctBalance and addDebit function
+                                          addDebit={this.addDebit} 
+                                          accountBalance={this.state.accountBalance} 
+                                          currentId={this.state.currentId}
+                                          updateId={this.updateId}
+                                          userName={this.state.currentUser.userName}
+                                          />); // Added props to pass debits, acctBalance and addDebit function
     const CreditComponent = () => (<Credits credits={this.state.credits} 
-                                             addCredit={this.addCredit} 
-                                             accountBalance={this.state.accountBalance} 
-                                             currentId={this.state.currentId}
-                                             updateId={this.updateId}
-                                             />); // Added props to pass credits, acctBalance and addCredit function
-    // const DummyComponent = () => ( <div> 
-    //   <p>What is going on why doesn't the credit and debit components work</p> 
-    //   <Debits/>
-    //   </div>);
+                                            addCredit={this.addCredit} 
+                                            accountBalance={this.state.accountBalance} 
+                                            currentId={this.state.currentId}
+                                            updateId={this.updateId}
+                                            userName={this.state.currentUser.userName}
+                                            />); // Added props to pass credits, acctBalance and addCredit function
 
     return (
         <Router>
@@ -119,7 +119,6 @@ class App extends Component {
             <Route exact path="/login" render={LogInComponent}/>
             <Route exact path="/credits" render={CreditComponent}/>
             <Route exact path="/debits" render={DebitComponent}/>
-            {/* <Route exact path="/dummy" render={DummyComponent}/> */}
           </div>
         </Router>
     );
