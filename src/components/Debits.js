@@ -27,8 +27,9 @@ class Debits extends Component {
     let list = debits.map( (debit) => { // Use map to list each debit item
       let date = debit.date.slice(0,10); // Get the first ten chars of the date 
       // Give map a list item, with key using the id, which lists the other values
+      let descriptionToCaps = debit.description.toUpperCase(); // Display in all caps like a bank usually does
       return (
-        <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
+        <li key={debit.id}>${debit.amount}&emsp;&emsp;{descriptionToCaps}&emsp;on:&emsp;{date}</li>
       );
     });
     return list;
@@ -36,7 +37,7 @@ class Debits extends Component {
 
   handleSubmit = (event) =>  {
     event.preventDefault(); // Stop page refresh
-    let debit = {
+    let debit = { // Add attributes to debit
       amount: this.state.amount,
       description: this.state.description,
       date: new Date(),
@@ -45,21 +46,24 @@ class Debits extends Component {
     debit.date = debit.date.toISOString(); // Turn into the string used in the API
     this.props.updateId(); // Make sure each ID is unique
     this.props.addDebit(debit); // Finally add to the debt from App.js
+    this.setState({description: "", amount: 0}); // Reset state
   }
 
   render() {
     return (
     	<div>
+         <img src="https://picsum.photos/200/200" alt="bank"/>
     	   <h1>Debits</h1>
-          {/* Make a form, which uses the function from App.js to add to that state*/}  
+         <h2>{this.props.userName}</h2>
           <AccountBalance accountBalance={this.props.accountBalance}/>
+          {/* Make a form, which uses handleSubmit to access the props functions from App.js */}  
            <form onSubmit={this.handleSubmit}>
              <input 
              type="text" 
              name="description"
-             placeholder='Description'
-             value={this.state.description}
-             onChange={this.handleChange} 
+             placeholder='Description' // Add a placeholder that tells the user what to input
+             value={this.state.description} // Keep the value in state
+             onChange={this.handleChange} // Change state when the value changes
              />
              <input 
              type="number" 
@@ -73,6 +77,7 @@ class Debits extends Component {
 
           <ul>
             {this.debitsView()}
+            {/* Must put this function within a list, as it only returns list items */}
           </ul>
 
            <Link to="/">Return to Home</Link>

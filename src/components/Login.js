@@ -34,6 +34,7 @@ class LogIn extends Component {
   }
   
   render () {
+    <img src="https://picsum.photos/200/200" alt="login"/>
     if (this.state.redirect) {  // Redirect to "User Profile" page when "Log In" button is clicked
       return (<Redirect to="/userProfile"/>)
     }
