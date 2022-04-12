@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import AccountBalance from './AccountBalance';
 
 class Credits extends Component {
-  constructor() { // Create and initialize state
-    super(); // Always do super()
-    this.state = {
-    }
-  }
+  // constructor() { // Create and initialize state
+  //   super(); // Always do super()
+  //   this.state = {
+  //   }
+  // }
   // List out the credit posts from the array from props onto the page
 	creditView = () => {
       const { credits } = this.props.credits; // Grab from props the array
@@ -23,7 +23,8 @@ class Credits extends Component {
     return (
     	<div>
     	   <h1>Credits</h1>
-    	   {this.creditsView()} {/* Use the above function to list credit items onto the page */}
+         {/* this.creditsView is not working */}
+    	   {/* {this.creditsView()} Use the above function to list credit items onto the page */}
           {/* Make a form, which uses the function from App.js to add to that state*/}  
           <AccountBalance accountBalance={this.props.accountBalance}/>
            <form onSubmit={this.props.addCredit}>
@@ -34,7 +35,7 @@ class Credits extends Component {
 
            <Link to="/">Return to Home</Link>
     	</div>
-    )
+    );
   }
 }
 export default Credits;
