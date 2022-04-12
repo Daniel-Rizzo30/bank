@@ -14,14 +14,14 @@ class Debits extends Component {
   }
 
   // List out the debit posts from the array from props onto the page
-	// debitsView = () => {
-  //     const { debits } = this.props.debits; // Grab from props the array
-  //     return debits.map((debit) => { // Use map to list each debit item
-  //         let date = debit.date.slice(0,10); // Get the first ten chars of the date
-  //         // Give map a list item, with key using the id, which lists the other values
-  //         return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
-  //     }) 
-  // }
+	debitsView = () => {
+      const { debits } = this.props.debits; // Grab from props the array
+      return debits.map((debit) => { // Use map to list each debit item
+          let date = debit.date.slice(0,10); // Get the first ten chars of the date
+          // Give map a list item, with key using the id, which lists the other values
+          return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
+      }) 
+  }
 
   handleChange = (event) => {
     const {name, value, type, checked} = event.target
@@ -33,7 +33,7 @@ class Debits extends Component {
 
   // List out the debit posts from the array from props onto the page
 	debitsView  = () => {
-    const { debits } = this.props.debits; // Grab from props the array
+    let debits = this.props.debits; // Grab from props the array, must be created with "let"
     let list = debits.map( (debit) => { // Use map to list each debit item
       let date = debit.date.slice(0,10); // Get the first ten chars of the date 
       // Give map a list item, with key using the id, which lists the other values
@@ -61,9 +61,6 @@ class Debits extends Component {
     return (
     	<div>
     	   <h1>Debits</h1>
-         {/* this.debitView() is not working */}
-    	   {this.debitsView} 
-         {/* Use the above function to list debit items onto the page */}
           {/* Make a form, which uses the function from App.js to add to that state*/}  
           <AccountBalance accountBalance={this.props.accountBalance}/>
            <form onSubmit={this.handleSubmit}>
@@ -83,6 +80,10 @@ class Debits extends Component {
              />
              <button type="submit">Add Debit</button>
            </form>
+
+          <ul>
+            {this.debitsView()}
+          </ul>
 
            <Link to="/">Return to Home</Link>
     	</div>
