@@ -114,11 +114,11 @@ class App extends Component {
     return (
         <Router>
           <div>
-            <Route exact path="/" render={HomeComponent}/>
-            <Route exact path="/userProfile" render={UserProfileComponent}/>
-            <Route exact path="/login" render={LogInComponent}/>
-            <Route exact path="/credits" render={CreditComponent}/>
-            <Route exact path="/debits" render={DebitComponent}/>
+            <Route exact path="/bank/" render={HomeComponent}/>
+            <Route exact path="/bank/userProfile" render={UserProfileComponent}/>
+            <Route exact path="/bank/login" render={LogInComponent}/>
+            <Route exact path="/bank/credits" render={CreditComponent}/>
+            <Route exact path="/bank/debits" render={DebitComponent}/>
           </div>
         </Router>
     );
