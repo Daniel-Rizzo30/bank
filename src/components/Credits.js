@@ -80,7 +80,7 @@ class Credits extends Component {
             {/* Must put this function within a list, as it only returns list items */}
           </ul>
 
-           <Link to="/">Return to Home</Link>
+           <Link to="/bank/">Return to Home</Link>
     	</div>
     );
   }
