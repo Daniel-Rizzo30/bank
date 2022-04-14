@@ -8,6 +8,8 @@ Daniel Rizzo - Daniel-Rizzo30
 
 [Click through to the website](https://daniel-rizzo30.github.io/bank/)
 
+# Notes
+
 The website fully works now! Routing needed to be changed after deploying, the
 name of the repo needed to be put before all links - /bank/
 
