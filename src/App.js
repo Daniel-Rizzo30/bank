@@ -13,7 +13,7 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 14568.27,
+      accountBalance: 0.0,
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '07/23/96',
@@ -34,11 +34,24 @@ class App extends Component {
     try {  // Accept success response as array of JSON objects (users)
       let responseDebit = await axios.get(linkToDebitAPI);
       let responseCredit = await axios.get(linkToCreditAPI);
+      let i = 0;
+      let balance = 0;
       console.log(responseDebit.data);  // Print out responses
       console.log(responseCredit.data); 
       // To get data object in the response, need to use "response.data"
+      for(i = 0; i < responseCredit.data.length; i++) {
+        console.log(responseCredit.data[i].amount);
+        balance = balance + + responseCredit.data[i].amount;
+      }
+      for(i = 0; i < responseDebit.data.length; i++) {
+        console.log(responseDebit.data[i].amount);
+        balance = balance - responseDebit.data[i].amount;
+      }
+      balance = Math.round(balance * 100) / 100; // Use Math function to round to 2 decimal places
       this.setState({credits: responseCredit.data, 
-                     debits: responseDebit.data});  // Store received data in state's object
+                     debits: responseDebit.data, 
+                     accountBalance: balance});  // Store received data in state's object
+
     } 
     catch (error) {  // Print out errors at console when there is an error response
       if (error.response) {
