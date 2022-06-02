@@ -20,3 +20,5 @@ is wrong. I tried really hard to debug, but nothing has helped.
 Everything leads back to the instructions laid out in the document
 that was linked in the Assignment 4 file. 
 
+Logging in is not implemented, logging in with a new username will just update the display name. 
+
